@@ -39,6 +39,7 @@
   <script type="text/babel">
     const { useState, useEffect, useMemo } = React;
 
+    // Fjalori Bilingu / Dictionary (SQ & EN)
     const DICTIONARY = {
       sq: {
         appTitle: 'TAVOLINA',
@@ -48,6 +49,7 @@
         navBookings: 'Rezervimet & Kalendari',
         navWaitlist: 'Lista e Pritjes',
         navAnalytics: 'Analitika & Raporte',
+        langBadge: 'SQ',
         guests: 'Persona',
         timeSlot: 'Ora',
         zones: {
@@ -66,43 +68,17 @@
           bookTable: 'Rezervo Tavolinën',
           edit: 'Ndrysho',
           delete: 'Fshi',
-          cancelReservation: 'Anulo Rezervimin',
           save: 'Ruaj Ndryshimet',
-          close: 'Mbyll',
-          confirm: 'Konfirmo',
-          addNewBooking: '+ Shto Rezervim të Ri',
-          addNewTable: '+ Shto Tavolinë',
+          cancel: 'Anulo',
+          seatGuest: 'Shto në Tavolinë',
+          confirm: 'Konfirmo Rezervimin',
+          addNewTable: '+ Shto Tavolinë të Re',
           addToWaitlist: '+ Shto në Pritje',
           exportCSV: 'Eksporto Raportin (CSV)'
         },
-        bookings: {
-          title: 'Regjistri i Rezervimeve',
-          subtitle: 'Krijo, modifiko të dhënat ose anulo rezervimet ekzistuese.',
-          date: 'Data e Përzgjedhur',
-          time: 'Ora',
-          client: 'Klienti',
-          party: 'Persona',
-          table: 'Tavolina',
-          status: 'Statusi',
-          actionsCol: 'Veprime',
-          editModalTitle: 'Modifiko Rezervimin',
-          newModalTitle: 'Krijo Rezervim të Ri',
-          noBookings: 'Nuk ka rezervime të regjistruara për këtë orar.'
-        },
-        form: {
-          clientName: 'Emri i Plotë i Klientit',
-          clientPlaceholder: 'p.sh. Alban Berisha',
-          phone: 'Numri i Telefonit',
-          phonePlaceholder: '+355 / +383...',
-          partySize: 'Numri i Personave',
-          time: 'Ora e Rezervimit',
-          tableSelect: 'Zgjidh Tavolinën',
-          notes: 'Kërkesa / Shënime',
-          notesPlaceholder: 'Alergji, festë, vend afër dritares...'
-        },
         editor: {
           title: 'Konfigurimi & Pozicionimi i Mesave',
-          subtitle: 'Kliko mbi një tavolinë ose përdor fushat për të modifikuar pozicionin dhe madhësinë.',
+          subtitle: 'Kliko mbi një tavolinë ose përdor fushat për të modifikuar pozicionin dhe madhësinë në mënyrë precize.',
           number: 'Numri i Tavolinës',
           type: 'Forma / Lloji',
           seats: 'Kapaciteti (Vende)',
@@ -122,6 +98,17 @@
           actionSeat: 'Zë Tavolinë',
           empty: 'Nuk ka klientë në pritje për momentin.'
         },
+        bookings: {
+          title: 'Regjistri i Rezervimeve',
+          subtitle: 'Kalendari ditor dhe menaxhimi i statusit të mysafirëve.',
+          date: 'Data e Përzgjedhur',
+          time: 'Ora',
+          client: 'Klienti',
+          party: 'Persona',
+          table: 'Tavolina',
+          status: 'Statusi',
+          noBookings: 'Nuk ka rezervime të regjistruara për këtë orar.'
+        },
         analytics: {
           title: 'Analitika & Performanca Operacionale',
           totalCovers: 'Të Ulur Sot (Covers)',
@@ -129,17 +116,19 @@
           avgTurnTime: 'Koha Mesatare e Qëndrimit',
           projectedRevenue: 'Të Hyrat e Parashikuara',
           trafficPerHour: 'Ngarkesa sipas Orarit (Klientë)',
-          zoneDistribution: 'Shpërndarja e Tavolinave sipas Zonave'
+          zoneDistribution: 'Shpërndarja e Tavolinave sipas Zonave',
+          summaryText: 'Raporti operacional i gjeneruar automatikisht bazuar në rezervimet dhe statuset e sallës.'
         }
       },
       en: {
         appTitle: 'TAVOLINA',
-        appSubtitle: 'Professional Reservation & Floor Suite',
+        appSubtitle: 'Professional Floor & Reservation Suite',
         navFloor: 'Floor Plan',
         navEditor: 'Table Editor',
         navBookings: 'Bookings & Calendar',
         navWaitlist: 'Waitlist',
         navAnalytics: 'Analytics & Reports',
+        langBadge: 'EN',
         guests: 'Guests',
         timeSlot: 'Time Slot',
         zones: {
@@ -158,43 +147,17 @@
           bookTable: 'Book Table',
           edit: 'Edit',
           delete: 'Delete',
-          cancelReservation: 'Cancel Booking',
           save: 'Save Changes',
-          close: 'Close',
-          confirm: 'Confirm',
-          addNewBooking: '+ Add New Booking',
-          addNewTable: '+ Add Table',
+          cancel: 'Cancel',
+          seatGuest: 'Seat Guest',
+          confirm: 'Confirm Booking',
+          addNewTable: '+ Add New Table',
           addToWaitlist: '+ Add to Waitlist',
           exportCSV: 'Export Report (CSV)'
         },
-        bookings: {
-          title: 'Reservations & Booking Ledger',
-          subtitle: 'Create, modify details, or cancel existing reservations.',
-          date: 'Selected Date',
-          time: 'Time',
-          client: 'Guest',
-          party: 'Party',
-          table: 'Table',
-          status: 'Status',
-          actionsCol: 'Actions',
-          editModalTitle: 'Modify Reservation',
-          newModalTitle: 'Create New Reservation',
-          noBookings: 'No reservations booked for this schedule.'
-        },
-        form: {
-          clientName: 'Guest Full Name',
-          clientPlaceholder: 'e.g. John Doe',
-          phone: 'Phone Number',
-          phonePlaceholder: '+1 555-0199...',
-          partySize: 'Party Size',
-          time: 'Reservation Time',
-          tableSelect: 'Assign Table',
-          notes: 'Special Requests / Notes',
-          notesPlaceholder: 'Allergies, anniversary, window seat...'
-        },
         editor: {
           title: 'Table Architecture & Layout Editor',
-          subtitle: 'Click any table or use coordinates panel to position and calibrate shapes accurately.',
+          subtitle: 'Click any table or use the coordinates panel to position and calibrate shapes accurately.',
           number: 'Table Number',
           type: 'Shape / Category',
           seats: 'Capacity (Seats)',
@@ -214,6 +177,17 @@
           actionSeat: 'Seat Now',
           empty: 'No guests currently waiting.'
         },
+        bookings: {
+          title: 'Reservations & Booking Ledger',
+          subtitle: 'Daily agenda and table assignment status.',
+          date: 'Selected Date',
+          time: 'Time',
+          client: 'Guest',
+          party: 'Party',
+          table: 'Table',
+          status: 'Status',
+          noBookings: 'No reservations booked for this schedule.'
+        },
         analytics: {
           title: 'Operations Analytics & Performance',
           totalCovers: 'Today’s Covers',
@@ -221,24 +195,30 @@
           avgTurnTime: 'Avg Turn Time',
           projectedRevenue: 'Projected Shift Revenue',
           trafficPerHour: 'Hourly Customer Flow',
-          zoneDistribution: 'Seating Capacity by Zone'
+          zoneDistribution: 'Seating Capacity by Zone',
+          summaryText: 'Automatic operational report synthesized from active bookings and live floor status.'
         }
       }
     };
 
+    // Mesat fillestare me pozita dhe forma vektoriale (viewBox 0 0 840 540)
     const DEFAULT_TABLES = [
       { id: 'T1', number: 1, type: 'round', seats: 2, x: 120, y: 110, r: 38, zone: 'main', status: 'available' },
       { id: 'T2', number: 2, type: 'round', seats: 4, x: 250, y: 110, r: 48, zone: 'main', status: 'available' },
       { id: 'T3', number: 3, type: 'round', seats: 4, x: 380, y: 110, r: 48, zone: 'main', status: 'reserved' },
       { id: 'T4', number: 4, type: 'rect', seats: 6, x: 520, y: 105, w: 110, h: 70, zone: 'main', status: 'available' },
+      
       { id: 'T5', number: 5, type: 'booth', seats: 6, x: 90, y: 245, w: 105, h: 78, zone: 'booths', status: 'occupied' },
       { id: 'T6', number: 6, type: 'booth', seats: 6, x: 90, y: 375, w: 105, h: 78, zone: 'booths', status: 'available' },
+
       { id: 'T7', number: 7, type: 'square', seats: 2, x: 260, y: 240, size: 66, zone: 'main', status: 'available' },
       { id: 'T8', number: 8, type: 'square', seats: 2, x: 380, y: 240, size: 66, zone: 'main', status: 'available' },
       { id: 'T9', number: 9, type: 'square', seats: 4, x: 260, y: 370, size: 82, zone: 'main', status: 'available' },
       { id: 'T10', number: 10, type: 'square', seats: 4, x: 380, y: 370, size: 82, zone: 'main', status: 'reserved' },
+
       { id: 'T11', number: 11, type: 'rect', seats: 8, x: 540, y: 250, w: 130, h: 86, zone: 'vip', status: 'available' },
       { id: 'T12', number: 12, type: 'round', seats: 6, x: 570, y: 410, r: 56, zone: 'vip', status: 'available' },
+
       { id: 'T13', number: 13, type: 'high_top', seats: 2, x: 740, y: 110, r: 32, zone: 'terrace', status: 'available' },
       { id: 'T14', number: 14, type: 'high_top', seats: 2, x: 740, y: 215, r: 32, zone: 'terrace', status: 'available' },
       { id: 'T15', number: 15, type: 'high_top', seats: 2, x: 740, y: 320, r: 32, zone: 'terrace', status: 'available' },
@@ -254,70 +234,67 @@
 
     const DEFAULT_WAITLIST = [
       { id: 'W-01', clientName: 'Mirlind Daku', partySize: 2, phone: '+383 49 555 999', waitMinutes: 14, notes: 'Prefers Terrace or High-top' },
-      { id: 'W-02', clientName: 'Sarah Jenkins', partySize: 4, phone: '+1 212 555 0876', waitMinutes: 8, notes: 'Booth if possible' }
+      { id: 'W-02', clientName: 'Sarah Jenkins', partySize: 4, phone: '+1 212 555 0876', waitMinutes: 8, notes: 'Booth if possible' },
+      { id: 'W-03', clientName: 'Dardan Berisha', partySize: 6, phone: '+355 67 432 1098', waitMinutes: 22, notes: 'Family dinner' }
     ];
 
     const SLOTS = ['17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30'];
 
     function App() {
+      // LocalStorage state persistence
       const [lang, setLang] = useState(() => localStorage.getItem('tavolina_lang') || 'sq');
-      const [activeTab, setActiveTab] = useState('floor');
+      const [activeTab, setActiveTab] = useState('floor'); // floor, editor, bookings, waitlist, analytics
       const [tables, setTables] = useState(() => {
-        const saved = localStorage.getItem('tavolina_tables_v3');
+        const saved = localStorage.getItem('tavolina_tables_pro');
         return saved ? JSON.parse(saved) : DEFAULT_TABLES;
       });
       const [bookings, setBookings] = useState(() => {
-        const saved = localStorage.getItem('tavolina_bookings_v3');
+        const saved = localStorage.getItem('tavolina_bookings_pro');
         return saved ? JSON.parse(saved) : DEFAULT_BOOKINGS;
       });
       const [waitlist, setWaitlist] = useState(() => {
-        const saved = localStorage.getItem('tavolina_waitlist_v3');
+        const saved = localStorage.getItem('tavolina_waitlist_pro');
         return saved ? JSON.parse(saved) : DEFAULT_WAITLIST;
       });
 
-      // Filters
+      // Filter state
       const [selectedZone, setSelectedZone] = useState('all');
       const [selectedTime, setSelectedTime] = useState('19:30');
       const [guestFilter, setGuestFilter] = useState(2);
       const [selectedDate, setSelectedDate] = useState('2026-10-04');
 
-      // Booking Modal (Create & Edit)
+      // Modals and selection
+      const [selectedTable, setSelectedTable] = useState(null);
       const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-      const [bookingModalMode, setBookingModalMode] = useState('create'); // 'create' | 'edit'
-      const [currentBookingId, setCurrentBookingId] = useState(null);
-      const [formData, setFormData] = useState({
-        clientName: '',
-        phone: '',
-        partySize: 2,
-        time: '19:30',
-        tableNumber: 1,
-        notes: '',
-        status: 'confirmed'
-      });
-      const [actionMessage, setActionMessage] = useState(null);
-
-      // Waitlist Modal
       const [isWaitlistModalOpen, setIsWaitlistModalOpen] = useState(false);
+      const [bookingSuccess, setBookingSuccess] = useState(false);
 
-      // Table Editor Selected
+      // New reservation form
+      const [resName, setResName] = useState('');
+      const [resPhone, setResPhone] = useState('');
+      const [resNotes, setResNotes] = useState('');
+      const [resParty, setResParty] = useState(2);
+
+      // Editor selected table
       const [editingTableId, setEditingTableId] = useState(tables[0]?.id || 'T1');
 
       const t = DICTIONARY[lang];
 
+      // Save to localStorage
       useEffect(() => {
         localStorage.setItem('tavolina_lang', lang);
       }, [lang]);
 
       useEffect(() => {
-        localStorage.setItem('tavolina_tables_v3', JSON.stringify(tables));
+        localStorage.setItem('tavolina_tables_pro', JSON.stringify(tables));
       }, [tables]);
 
       useEffect(() => {
-        localStorage.setItem('tavolina_bookings_v3', JSON.stringify(bookings));
+        localStorage.setItem('tavolina_bookings_pro', JSON.stringify(bookings));
       }, [bookings]);
 
       useEffect(() => {
-        localStorage.setItem('tavolina_waitlist_v3', JSON.stringify(waitlist));
+        localStorage.setItem('tavolina_waitlist_pro', JSON.stringify(waitlist));
       }, [waitlist]);
 
       const filteredTables = useMemo(() => {
@@ -329,180 +306,61 @@
         return tables.find(tItem => tItem.id === editingTableId) || tables[0];
       }, [tables, editingTableId]);
 
-      // Open modal to create booking for a specific table clicked on map
+      // Floor table click
       const handleTableClick = (tbl) => {
         if (activeTab === 'editor') {
           setEditingTableId(tbl.id);
           return;
         }
-        if (tbl.status === 'occupied') {
-          // Find existing booking to view/edit
-          const match = bookings.find(b => b.tableNumber === tbl.number);
-          if (match) {
-            handleOpenEditBooking(match);
-            return;
-          }
-        }
-        if (tbl.status === 'reserved') {
-          const match = bookings.find(b => b.tableNumber === tbl.number);
-          if (match) {
-            handleOpenEditBooking(match);
-            return;
-          }
-        }
-
-        setBookingModalMode('create');
-        setCurrentBookingId(null);
-        setFormData({
-          clientName: '',
-          phone: '',
-          partySize: tbl.seats,
-          time: selectedTime,
-          tableNumber: tbl.number,
-          notes: '',
-          status: 'confirmed'
-        });
+        if (tbl.status === 'occupied') return;
+        setSelectedTable(tbl);
+        setResParty(tbl.seats);
         setIsBookingModalOpen(true);
       };
 
-      // Open modal to create a general booking
-      const handleOpenCreateBooking = () => {
-        const firstAvail = tables.find(t => t.status === 'available') || tables[0];
-        setBookingModalMode('create');
-        setCurrentBookingId(null);
-        setFormData({
-          clientName: '',
-          phone: '',
-          partySize: 2,
-          time: selectedTime,
-          tableNumber: firstAvail.number,
-          notes: '',
-          status: 'confirmed'
-        });
-        setIsBookingModalOpen(true);
-      };
-
-      // Open modal to modify booking
-      const handleOpenEditBooking = (booking) => {
-        setBookingModalMode('edit');
-        setCurrentBookingId(booking.id);
-        setFormData({
-          clientName: booking.clientName,
-          phone: booking.phone,
-          partySize: booking.partySize,
-          time: booking.time,
-          tableNumber: booking.tableNumber,
-          notes: booking.notes || '',
-          status: booking.status || 'confirmed'
-        });
-        setIsBookingModalOpen(true);
-      };
-
-      // Save (Create or Modify)
-      const handleSaveBooking = (e) => {
+      // Submit reservation
+      const handleConfirmReservation = (e) => {
         e.preventDefault();
-        const targetTable = tables.find(t => t.number === Number(formData.tableNumber));
-        const zone = targetTable ? targetTable.zone : 'main';
+        if (!selectedTable) return;
 
-        if (bookingModalMode === 'create') {
-          const newBooking = {
-            id: `B-${Date.now().toString().slice(-4)}`,
-            clientName: formData.clientName,
-            phone: formData.phone,
-            partySize: Number(formData.partySize),
-            time: formData.time,
-            tableNumber: Number(formData.tableNumber),
-            zone: zone,
-            status: formData.status,
-            notes: formData.notes
-          };
-          setBookings(prev => [newBooking, ...prev]);
+        const newBooking = {
+          id: `B-${Date.now().toString().slice(-4)}`,
+          clientName: resName,
+          phone: resPhone,
+          partySize: resParty,
+          time: selectedTime,
+          tableNumber: selectedTable.number,
+          zone: selectedTable.zone,
+          status: 'confirmed',
+          notes: resNotes
+        };
 
-          // Update table status
-          setTables(prev => prev.map(tItem => 
-            tItem.number === Number(formData.tableNumber)
-              ? { ...tItem, status: formData.status === 'seated' ? 'occupied' : 'reserved' }
-              : tItem
-          ));
-          showToast(lang === 'sq' ? 'Rezervimi u shtua me sukses!' : 'Reservation created successfully!');
-        } else {
-          // Editing existing booking
-          const oldBooking = bookings.find(b => b.id === currentBookingId);
-
-          setBookings(prev => prev.map(b => 
-            b.id === currentBookingId
-              ? {
-                  ...b,
-                  clientName: formData.clientName,
-                  phone: formData.phone,
-                  partySize: Number(formData.partySize),
-                  time: formData.time,
-                  tableNumber: Number(formData.tableNumber),
-                  zone: zone,
-                  status: formData.status,
-                  notes: formData.notes
-                }
-              : b
-          ));
-
-          // If table changed, free the old table
-          if (oldBooking && oldBooking.tableNumber !== Number(formData.tableNumber)) {
-            setTables(prev => prev.map(tItem => {
-              if (tItem.number === oldBooking.tableNumber) return { ...tItem, status: 'available' };
-              if (tItem.number === Number(formData.tableNumber)) return { ...tItem, status: formData.status === 'seated' ? 'occupied' : 'reserved' };
-              return tItem;
-            }));
-          } else {
-            // update existing table's status
-            setTables(prev => prev.map(tItem => 
-              tItem.number === Number(formData.tableNumber)
-                ? { ...tItem, status: formData.status === 'seated' ? 'occupied' : 'reserved' }
-                : tItem
-            ));
-          }
-          showToast(lang === 'sq' ? 'Rezervimi u modifikua me sukses!' : 'Reservation updated successfully!');
-        }
-
-        setIsBookingModalOpen(false);
-      };
-
-      // Cancel / Delete Reservation
-      const handleCancelBooking = (bookingId) => {
-        const toCancel = bookings.find(b => b.id === bookingId);
-        if (!toCancel) return;
-
-        const confirmMsg = lang === 'sq' 
-          ? `A jeni i sigurt që dëshironi të anuloni rezervimin për ${toCancel.clientName} (Tavolina #${toCancel.tableNumber})?`
-          : `Are you sure you want to cancel the reservation for ${toCancel.clientName} (Table #${toCancel.tableNumber})?`;
-
-        if (!confirm(confirmMsg)) return;
-
-        // Free up the table
+        setBookings(prev => [newBooking, ...prev]);
         setTables(prev => prev.map(tItem => 
-          tItem.number === toCancel.tableNumber ? { ...tItem, status: 'available' } : tItem
+          tItem.id === selectedTable.id ? { ...tItem, status: 'reserved' } : tItem
         ));
 
-        // Remove from bookings
-        setBookings(prev => prev.filter(b => b.id !== bookingId));
-        if (isBookingModalOpen && currentBookingId === bookingId) {
+        setBookingSuccess(true);
+        setTimeout(() => {
+          setBookingSuccess(false);
           setIsBookingModalOpen(false);
-        }
-        showToast(lang === 'sq' ? 'Rezervimi u anulua dhe tavolina u lirua!' : 'Booking cancelled and table freed!');
+          setResName('');
+          setResPhone('');
+          setResNotes('');
+          setSelectedTable(null);
+        }, 1400);
       };
 
-      const showToast = (msg) => {
-        setActionMessage(msg);
-        setTimeout(() => setActionMessage(null), 3000);
-      };
-
-      // Seat from waitlist
+      // Waitlist Seating Action
       const seatWaitlistGuest = (waitItem) => {
+        // Find matching available table
         const candidate = tables.find(tItem => tItem.status === 'available' && tItem.seats >= waitItem.partySize);
         if (!candidate) {
-          alert(lang === 'sq' ? 'Nuk ka asnjë tavolinë të lirë me kapacitet të mjaftueshëm tani!' : 'No available table matches this party size right now.');
+          alert(lang === 'sq' ? 'Nuk ka asnjë tavolinë të lirë me kapacitet të mjaftueshëm për këtë grup!' : 'No available table matches this party size right now.');
           return;
         }
 
+        // Seat immediately
         setTables(prev => prev.map(tItem => 
           tItem.id === candidate.id ? { ...tItem, status: 'occupied' } : tItem
         ));
@@ -519,10 +377,10 @@
           notes: `Walk-in from waitlist. ${waitItem.notes || ''}`
         }, ...prev]);
 
-        showToast(lang === 'sq' ? `${waitItem.clientName} u ul në Tavolinën #${candidate.number}!` : `${waitItem.clientName} seated at Table #${candidate.number}!`);
+        alert(lang === 'sq' ? `${waitItem.clientName} u ul me sukses në Tavolinën #${candidate.number}!` : `${waitItem.clientName} was seated at Table #${candidate.number}!`);
       };
 
-      // Add to waitlist
+      // Add to Waitlist
       const handleAddWaitlist = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -537,16 +395,16 @@
         setWaitlist(prev => [...prev, newWait]);
         setIsWaitlistModalOpen(false);
         form.reset();
-        showToast(lang === 'sq' ? 'Klienti u shtua në pritje!' : 'Guest added to waitlist!');
       };
 
-      // Editor table alterations
+      // Editor Updates
       const updateEditingTable = (field, val) => {
         setTables(prev => prev.map(tbl => 
           tbl.id === editingTableId ? { ...tbl, [field]: val } : tbl
         ));
       };
 
+      // Add new table in editor
       const handleCreateNewTable = () => {
         const nextNum = Math.max(...tables.map(tItem => tItem.number), 0) + 1;
         const newT = {
@@ -564,6 +422,7 @@
         setEditingTableId(newT.id);
       };
 
+      // Delete table in editor
       const handleDeleteTable = (id) => {
         if (tables.length <= 1) return;
         const updated = tables.filter(tItem => tItem.id !== id);
@@ -571,20 +430,23 @@
         setEditingTableId(updated[0].id);
       };
 
-      // Analytics
+      // Analytics Computations
       const analyticsData = useMemo(() => {
         const totalTables = tables.length;
         const occupiedCount = tables.filter(tItem => tItem.status === 'occupied').length;
         const reservedCount = tables.filter(tItem => tItem.status === 'reserved').length;
+        const totalCapacity = tables.reduce((acc, curr) => acc + curr.seats, 0);
         const seatedCovers = tables.filter(tItem => tItem.status === 'occupied').reduce((acc, curr) => acc + curr.seats, 0);
         const bookedCovers = bookings.reduce((acc, curr) => acc + curr.partySize, 0);
-        const occupancyPct = Math.round(((occupiedCount + reservedCount) / totalTables) * 100) || 0;
-        const estRevenue = (seatedCovers + bookedCovers) * 48;
+
+        const occupancyPct = Math.round(((occupiedCount + reservedCount) / totalTables) * 100);
+        const estRevenue = (seatedCovers + bookedCovers) * 48; // average ticket calculation
 
         return {
           totalTables,
           occupiedCount,
           reservedCount,
+          totalCapacity,
           seatedCovers,
           bookedCovers,
           occupancyPct,
@@ -592,6 +454,7 @@
         };
       }, [tables, bookings]);
 
+      // Export CSV
       const exportCSV = () => {
         const headers = "ID,Klienti,Telefoni,Persona,Ora,Tavolina,Zona,Statusi\n";
         const rows = bookings.map(b => 
@@ -608,15 +471,7 @@
       };
 
       return (
-        <div className="flex flex-col h-full w-full bg-[#090d16] select-none relative">
-          {/* TOAST NOTIFICATION */}
-          {actionMessage && (
-            <div className="fixed top-20 right-6 z-50 bg-emerald-600 text-white font-semibold text-xs px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 animate-bounce">
-              <span>✓</span>
-              <span>{actionMessage}</span>
-            </div>
-          )}
-
+        <div className="flex flex-col h-full w-full bg-[#090d16] select-none">
           {/* TOP NAV BAR */}
           <header className="h-16 px-6 bg-[#0f172a] border-b border-slate-800 flex items-center justify-between flex-shrink-0 z-20">
             <div className="flex items-center space-x-3">
@@ -638,15 +493,15 @@
             <nav className="hidden md:flex items-center bg-slate-900/90 border border-slate-800 p-1 rounded-xl">
               {[
                 { id: 'floor', label: t.navFloor, icon: '◫' },
-                { id: 'bookings', label: `${t.navBookings} (${bookings.length})`, icon: '📅' },
-                { id: 'waitlist', label: `${t.navWaitlist} (${waitlist.length})`, icon: '⏳' },
                 { id: 'editor', label: t.navEditor, icon: '✎' },
+                { id: 'bookings', label: t.navBookings, icon: '📅' },
+                { id: 'waitlist', label: `${t.navWaitlist} (${waitlist.length})`, icon: '⏳' },
                 { id: 'analytics', label: t.navAnalytics, icon: '📊' }
               ].map(tab => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
                     activeTab === tab.id
                       ? 'bg-rose-600 text-white shadow-md shadow-rose-600/30'
                       : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
@@ -658,30 +513,33 @@
               ))}
             </nav>
 
-            {/* Language Switcher */}
-            <div className="flex items-center bg-slate-900 border border-slate-800 p-0.5 rounded-lg">
-              <button
-                onClick={() => setLang('sq')}
-                className={`px-2.5 py-1 text-xs font-bold rounded transition-all ${
-                  lang === 'sq' ? 'bg-amber-500 text-slate-950 shadow' : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                SQ
-              </button>
-              <button
-                onClick={() => setLang('en')}
-                className={`px-2.5 py-1 text-xs font-bold rounded transition-all ${
-                  lang === 'en' ? 'bg-amber-500 text-slate-950 shadow' : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                EN
-              </button>
+            {/* Right Tools & Language Toggle */}
+            <div className="flex items-center gap-3">
+              <div className="flex items-center bg-slate-900 border border-slate-800 p-0.5 rounded-lg">
+                <button
+                  onClick={() => setLang('sq')}
+                  className={`px-2.5 py-1 text-xs font-bold rounded transition-all ${
+                    lang === 'sq' ? 'bg-amber-500 text-slate-950 shadow' : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  SQ
+                </button>
+                <button
+                  onClick={() => setLang('en')}
+                  className={`px-2.5 py-1 text-xs font-bold rounded transition-all ${
+                    lang === 'en' ? 'bg-amber-500 text-slate-950 shadow' : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  EN
+                </button>
+              </div>
             </div>
           </header>
 
-          {/* SECONDARY CONTROLS (Active in Floor view) */}
+          {/* SECONDARY FILTER CONTROLS (Active in Floor view) */}
           {activeTab === 'floor' && (
             <div className="bg-[#0e1626] border-b border-slate-800/80 px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 flex-shrink-0">
+              {/* Party size filters */}
               <div className="flex items-center gap-2">
                 <span className="text-xs font-medium text-slate-400">{t.guests}:</span>
                 <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-lg border border-slate-800">
@@ -699,6 +557,7 @@
                 </div>
               </div>
 
+              {/* Time Slots Carousel */}
               <div className="flex items-center gap-1.5 overflow-x-auto max-w-xl custom-scroll py-0.5">
                 {SLOTS.map(timeStr => (
                   <button
@@ -715,6 +574,7 @@
                 ))}
               </div>
 
+              {/* Zones selector */}
               <div className="flex items-center gap-1.5">
                 {Object.entries(t.zones).map(([key, label]) => (
                   <button
@@ -734,9 +594,10 @@
           {/* MAIN CONTENT AREA */}
           <main className="flex-1 relative w-full h-full p-4 overflow-hidden flex items-center justify-center">
 
-            {/* TAB 1: VISUAL FLOOR PLAN */}
+            {/* TAB 1: VISUAL INTERACTIVE FLOOR PLAN */}
             {activeTab === 'floor' && (
               <div className="w-full h-full max-h-[84vh] bg-[#0c1322] border border-slate-800/90 rounded-2xl p-2 relative shadow-2xl flex items-center justify-center overflow-hidden">
+                {/* Floor Plan Legend */}
                 <div className="absolute top-4 left-4 z-10 flex gap-4 text-[11px] bg-slate-900/90 backdrop-blur px-3 py-1.5 rounded-lg border border-slate-800 shadow">
                   <div className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
@@ -752,6 +613,7 @@
                   </div>
                 </div>
 
+                {/* SVG Auto-scaled Floor Map */}
                 <svg viewBox="0 0 840 540" className="w-full h-full max-h-full object-contain select-none">
                   <defs>
                     <radialGradient id="grad-avail" cx="50%" cy="50%" r="50%">
@@ -768,19 +630,25 @@
                     </radialGradient>
                   </defs>
 
+                  {/* Outer border & zone boundaries */}
                   <rect x="20" y="20" width="800" height="500" rx="18" fill="#0d1527" stroke="#1e293b" strokeWidth="2" strokeDasharray="6 6" />
 
+                  {/* Zone Labels */}
                   <text x="50" y="55" fill="#475569" fontSize="13" fontWeight="800" letterSpacing="1.5">{t.zones.booths.toUpperCase()}</text>
                   <text x="320" y="55" fill="#475569" fontSize="13" fontWeight="800" letterSpacing="1.5">{t.zones.main.toUpperCase()}</text>
                   <text x="550" y="55" fill="#475569" fontSize="13" fontWeight="800" letterSpacing="1.5">{t.zones.vip.toUpperCase()}</text>
                   <text x="730" y="55" fill="#475569" fontSize="13" fontWeight="800" letterSpacing="1.5">{t.zones.terrace.toUpperCase()}</text>
 
+                  {/* Partition dividers */}
                   <line x1="210" y1="30" x2="210" y2="510" stroke="#1e293b" strokeWidth="1" strokeDasharray="4 4" />
                   <line x1="490" y1="30" x2="490" y2="510" stroke="#1e293b" strokeWidth="1" strokeDasharray="4 4" />
                   <line x1="695" y1="30" x2="695" y2="510" stroke="#1e293b" strokeWidth="1" strokeDasharray="4 4" />
 
+                  {/* Table Shape Renderings */}
                   {filteredTables.map(tbl => {
                     const isSuitable = tbl.seats >= guestFilter;
+                    const isAvail = tbl.status === 'available';
+
                     const strokeColor = tbl.status === 'available'
                       ? (isSuitable ? '#10b981' : '#475569')
                       : tbl.status === 'reserved' ? '#f59e0b' : '#f43f5e';
@@ -793,8 +661,9 @@
                       <g
                         key={tbl.id}
                         onClick={() => handleTableClick(tbl)}
-                        className="cursor-pointer transition-all duration-300 hover:opacity-85"
+                        className={`transition-all duration-300 ${isAvail ? 'cursor-pointer hover:opacity-90' : 'cursor-not-allowed opacity-70'}`}
                       >
+                        {/* Round and High-top Barstools */}
                         {(tbl.type === 'round' || tbl.type === 'high_top') && (
                           <circle
                             cx={tbl.x}
@@ -807,6 +676,7 @@
                           />
                         )}
 
+                        {/* Square Tables */}
                         {tbl.type === 'square' && (
                           <rect
                             x={tbl.x - tbl.size / 2}
@@ -820,6 +690,7 @@
                           />
                         )}
 
+                        {/* Rectangular Banquet Tables */}
                         {tbl.type === 'rect' && (
                           <rect
                             x={tbl.x - tbl.w / 2}
@@ -833,6 +704,7 @@
                           />
                         )}
 
+                        {/* Booths with Backrest Silhouette */}
                         {tbl.type === 'booth' && (
                           <g>
                             <rect
@@ -855,6 +727,7 @@
                           </g>
                         )}
 
+                        {/* Labels & Seat Counts */}
                         <text
                           x={tbl.x}
                           y={tbl.y - 2}
@@ -884,165 +757,10 @@
               </div>
             )}
 
-            {/* TAB 2: BOOKINGS LEDGER WITH CREATE, EDIT, AND CANCEL */}
-            {activeTab === 'bookings' && (
-              <div className="w-full h-full max-h-[84vh] bg-[#0c1322] border border-slate-800 rounded-2xl p-5 flex flex-col">
-                <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-800">
-                  <div>
-                    <h2 className="text-base font-bold text-white">{t.bookings.title}</h2>
-                    <p className="text-xs text-slate-400">{t.bookings.subtitle}</p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={handleOpenCreateBooking}
-                      className="px-3.5 py-1.5 bg-gradient-to-r from-rose-600 to-amber-600 text-white rounded-lg text-xs font-bold shadow-md shadow-rose-600/25 hover:opacity-95"
-                    >
-                      {t.actions.addNewBooking}
-                    </button>
-                    <input
-                      type="date"
-                      value={selectedDate}
-                      onChange={(e) => setSelectedDate(e.target.value)}
-                      className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white"
-                    />
-                    <button
-                      onClick={exportCSV}
-                      className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg text-xs font-semibold"
-                    >
-                      {t.actions.exportCSV}
-                    </button>
-                  </div>
-                </div>
-
-                <div className="flex-1 overflow-y-auto custom-scroll mt-4">
-                  <table className="w-full text-left text-xs">
-                    <thead className="bg-slate-900/80 text-slate-400 uppercase font-semibold sticky top-0">
-                      <tr>
-                        <th className="p-3">ID</th>
-                        <th className="p-3">{t.bookings.client}</th>
-                        <th className="p-3">{t.bookings.party}</th>
-                        <th className="p-3">{t.bookings.time}</th>
-                        <th className="p-3">{t.bookings.table}</th>
-                        <th className="p-3">Zona</th>
-                        <th className="p-3">{t.bookings.status}</th>
-                        <th className="p-3">Shënime</th>
-                        <th className="p-3 text-right">{t.bookings.actionsCol}</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-800/80">
-                      {bookings.length === 0 ? (
-                        <tr>
-                          <td colSpan="9" className="text-center py-10 text-slate-500">
-                            {t.bookings.noBookings}
-                          </td>
-                        </tr>
-                      ) : (
-                        bookings.map(b => (
-                          <tr key={b.id} className="hover:bg-slate-900/50">
-                            <td className="p-3 font-mono text-slate-400">{b.id}</td>
-                            <td className="p-3 font-bold text-white">
-                              {b.clientName}
-                              <span className="block text-[10px] text-slate-400 font-normal">{b.phone}</span>
-                            </td>
-                            <td className="p-3 text-slate-300 font-semibold">{b.partySize} {t.guests}</td>
-                            <td className="p-3 text-rose-400 font-bold">{b.time}</td>
-                            <td className="p-3 text-slate-200 font-bold">#{b.tableNumber}</td>
-                            <td className="p-3 capitalize text-slate-400">{t.zones[b.zone] || b.zone}</td>
-                            <td className="p-3">
-                              <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                                b.status === 'seated'
-                                  ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
-                                  : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                              }`}>
-                                {b.status}
-                              </span>
-                            </td>
-                            <td className="p-3 text-slate-400 max-w-xs truncate">{b.notes || '—'}</td>
-                            <td className="p-3 text-right">
-                              <div className="flex items-center justify-end gap-2">
-                                <button
-                                  onClick={() => handleOpenEditBooking(b)}
-                                  className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded text-[11px] font-semibold transition"
-                                >
-                                  {t.actions.edit}
-                                </button>
-                                <button
-                                  onClick={() => handleCancelBooking(b.id)}
-                                  className="px-2.5 py-1 bg-rose-950/60 hover:bg-rose-900 border border-rose-800/60 text-rose-300 rounded text-[11px] font-semibold transition"
-                                >
-                                  {t.actions.cancelReservation}
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                        ))
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )}
-
-            {/* TAB 3: WAITLIST */}
-            {activeTab === 'waitlist' && (
-              <div className="w-full h-full max-h-[84vh] bg-[#0c1322] border border-slate-800 rounded-2xl p-5 flex flex-col">
-                <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-                  <div>
-                    <h2 className="text-base font-bold text-white">{t.waitlist.title}</h2>
-                    <p className="text-xs text-slate-400">{t.waitlist.subtitle}</p>
-                  </div>
-                  <button
-                    onClick={() => setIsWaitlistModalOpen(true)}
-                    className="px-4 py-2 bg-gradient-to-r from-amber-500 to-rose-600 text-slate-950 font-bold rounded-xl text-xs shadow-lg hover:opacity-95"
-                  >
-                    {t.actions.addToWaitlist}
-                  </button>
-                </div>
-
-                <div className="flex-1 overflow-y-auto custom-scroll mt-4 space-y-3">
-                  {waitlist.length === 0 ? (
-                    <div className="text-center py-16 text-slate-500 text-xs">
-                      {t.waitlist.empty}
-                    </div>
-                  ) : (
-                    waitlist.map((item, idx) => (
-                      <div
-                        key={item.id}
-                        className="bg-slate-900/90 border border-slate-800 hover:border-slate-700 rounded-xl p-4 flex flex-wrap items-center justify-between gap-3 shadow"
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="w-7 h-7 rounded-full bg-slate-800 text-amber-400 font-bold text-xs flex items-center justify-center">
-                            {idx + 1}
-                          </span>
-                          <div>
-                            <h4 className="text-sm font-bold text-white">{item.clientName}</h4>
-                            <p className="text-xs text-slate-400">{item.phone} • {item.partySize} {t.guests}</p>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-6">
-                          <div className="text-right">
-                            <span className="text-[11px] text-slate-400 block">{t.waitlist.waitTime}</span>
-                            <span className="text-xs font-extrabold text-amber-400 font-mono">+{item.waitMinutes} min</span>
-                          </div>
-
-                          <button
-                            onClick={() => seatWaitlistGuest(item)}
-                            className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold shadow-md shadow-emerald-600/20"
-                          >
-                            {t.waitlist.actionSeat}
-                          </button>
-                        </div>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* TAB 4: TABLE ARCHITECTURE EDITOR */}
+            {/* TAB 2: TABLE ARCHITECTURE EDITOR PANEL */}
             {activeTab === 'editor' && (
               <div className="w-full h-full max-h-[84vh] grid grid-cols-1 lg:grid-cols-3 gap-5">
+                {/* SVG Visual Canvas for Editor */}
                 <div className="lg:col-span-2 bg-[#0c1322] border border-slate-800 rounded-2xl p-3 flex flex-col justify-between">
                   <div className="flex items-center justify-between pb-2 border-b border-slate-800/80">
                     <span className="text-xs font-bold text-slate-300">{t.editor.title}</span>
@@ -1109,6 +827,7 @@
                   </div>
                 </div>
 
+                {/* Editor Controls Sidebar */}
                 <div className="bg-[#0f172a] border border-slate-800 rounded-2xl p-5 flex flex-col justify-between overflow-y-auto custom-scroll">
                   <div>
                     <h3 className="text-sm font-bold text-white mb-1">
@@ -1168,6 +887,7 @@
                         </select>
                       </div>
 
+                      {/* Coordinates calibration */}
                       <div className="grid grid-cols-2 gap-3 pt-1">
                         <div>
                           <label className="text-slate-300 font-semibold block mb-1">{t.editor.posX}</label>
@@ -1217,9 +937,135 @@
               </div>
             )}
 
+            {/* TAB 3: BOOKINGS CALENDAR & LEDGER */}
+            {activeTab === 'bookings' && (
+              <div className="w-full h-full max-h-[84vh] bg-[#0c1322] border border-slate-800 rounded-2xl p-5 flex flex-col">
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-800">
+                  <div>
+                    <h2 className="text-base font-bold text-white">{t.bookings.title}</h2>
+                    <p className="text-xs text-slate-400">{t.bookings.subtitle}</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="date"
+                      value={selectedDate}
+                      onChange={(e) => setSelectedDate(e.target.value)}
+                      className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white"
+                    />
+                    <button
+                      onClick={exportCSV}
+                      className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg text-xs font-semibold"
+                    >
+                      {t.actions.exportCSV}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex-1 overflow-y-auto custom-scroll mt-4">
+                  <table className="w-full text-left text-xs">
+                    <thead className="bg-slate-900/80 text-slate-400 uppercase font-semibold sticky top-0">
+                      <tr>
+                        <th className="p-3">ID</th>
+                        <th className="p-3">{t.bookings.client}</th>
+                        <th className="p-3">{t.bookings.party}</th>
+                        <th className="p-3">{t.bookings.time}</th>
+                        <th className="p-3">{t.bookings.table}</th>
+                        <th className="p-3">Zona</th>
+                        <th className="p-3">{t.bookings.status}</th>
+                        <th className="p-3">Shënime</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/80">
+                      {bookings.map(b => (
+                        <tr key={b.id} className="hover:bg-slate-900/50">
+                          <td className="p-3 font-mono text-slate-400">{b.id}</td>
+                          <td className="p-3 font-bold text-white">
+                            {b.clientName}
+                            <span className="block text-[10px] text-slate-400 font-normal">{b.phone}</span>
+                          </td>
+                          <td className="p-3 text-slate-300 font-semibold">{b.partySize} {t.guests}</td>
+                          <td className="p-3 text-rose-400 font-bold">{b.time}</td>
+                          <td className="p-3 text-slate-200 font-bold">#{b.tableNumber}</td>
+                          <td className="p-3 capitalize text-slate-400">{t.zones[b.zone] || b.zone}</td>
+                          <td className="p-3">
+                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                              b.status === 'seated'
+                                ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                                : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                            }`}>
+                              {b.status}
+                            </span>
+                          </td>
+                          <td className="p-3 text-slate-400 max-w-xs truncate">{b.notes || '—'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 4: WAITLIST (WALK-INS) */}
+            {activeTab === 'waitlist' && (
+              <div className="w-full h-full max-h-[84vh] bg-[#0c1322] border border-slate-800 rounded-2xl p-5 flex flex-col">
+                <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+                  <div>
+                    <h2 className="text-base font-bold text-white">{t.waitlist.title}</h2>
+                    <p className="text-xs text-slate-400">{t.waitlist.subtitle}</p>
+                  </div>
+                  <button
+                    onClick={() => setIsWaitlistModalOpen(true)}
+                    className="px-4 py-2 bg-gradient-to-r from-amber-500 to-rose-600 text-slate-950 font-bold rounded-xl text-xs shadow-lg hover:opacity-95"
+                  >
+                    {t.actions.addToWaitlist}
+                  </button>
+                </div>
+
+                <div className="flex-1 overflow-y-auto custom-scroll mt-4 space-y-3">
+                  {waitlist.length === 0 ? (
+                    <div className="text-center py-16 text-slate-500 text-xs">
+                      {t.waitlist.empty}
+                    </div>
+                  ) : (
+                    waitlist.map((item, idx) => (
+                      <div
+                        key={item.id}
+                        className="bg-slate-900/90 border border-slate-800 hover:border-slate-700 rounded-xl p-4 flex flex-wrap items-center justify-between gap-3 shadow"
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="w-7 h-7 rounded-full bg-slate-800 text-amber-400 font-bold text-xs flex items-center justify-center">
+                            {idx + 1}
+                          </span>
+                          <div>
+                            <h4 className="text-sm font-bold text-white">{item.clientName}</h4>
+                            <p className="text-xs text-slate-400">{item.phone} • {item.partySize} {t.guests}</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-6">
+                          <div className="text-right">
+                            <span className="text-[11px] text-slate-400 block">{t.waitlist.waitTime}</span>
+                            <span className="text-xs font-extrabold text-amber-400 font-mono">+{item.waitMinutes} min</span>
+                          </div>
+
+                          <button
+                            onClick={() => seatWaitlistGuest(item)}
+                            className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold shadow-md shadow-emerald-600/20"
+                          >
+                            {t.waitlist.actionSeat}
+                          </button>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            )}
+
             {/* TAB 5: ANALYTICS & REPORTS */}
             {activeTab === 'analytics' && (
               <div className="w-full h-full max-h-[84vh] overflow-y-auto custom-scroll space-y-5 p-1">
+                {/* Metrics Cards */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="bg-[#0f172a] border border-slate-800 rounded-xl p-4 shadow">
                     <span className="text-[11px] text-slate-400 block">{t.analytics.totalCovers}</span>
@@ -1234,7 +1080,7 @@
                     <span className="text-2xl font-black text-amber-400 mt-1 block">
                       {analyticsData.occupancyPct}%
                     </span>
-                    <span className="text-[10px] text-slate-400">{analyticsData.occupiedCount + analyticsData.reservedCount} / {analyticsData.totalTables} tavolina</span>
+                    <span className="text-[10px] text-slate-400">{analyticsData.occupiedCount + analyticsData.reservedCount} / {analyticsData.totalTables} {t.editor.title.split(' ')[0]}</span>
                   </div>
 
                   <div className="bg-[#0f172a] border border-slate-800 rounded-xl p-4 shadow">
@@ -1252,6 +1098,7 @@
                   </div>
                 </div>
 
+                {/* Flow Visualizer & Zone Breakdown */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="bg-[#0f172a] border border-slate-800 rounded-xl p-5 shadow">
                     <h3 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
@@ -1309,158 +1156,117 @@
             )}
           </main>
 
-          {/* DUAL PURPOSE RESERVATION MODAL (CREATE OR MODIFY) */}
-          {isBookingModalOpen && (
+          {/* RESERVATION BOOKING MODAL */}
+          {isBookingModalOpen && selectedTable && (
             <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
               <div className="bg-[#0f172a] border border-slate-700 rounded-2xl w-full max-w-md p-6 shadow-2xl relative">
-                <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-                  <div>
-                    <h3 className="text-sm font-bold text-white">
-                      {bookingModalMode === 'edit' ? t.bookings.editModalTitle : t.bookings.newModalTitle}
+                {bookingSuccess ? (
+                  <div className="text-center py-6">
+                    <div className="w-14 h-14 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-3 border border-emerald-500/40 text-2xl font-bold">
+                      ✓
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-1">
+                      {lang === 'sq' ? 'Rezervimi u Konfirmua!' : 'Reservation Confirmed!'}
                     </h3>
                     <p className="text-xs text-slate-400">
-                      {bookingModalMode === 'edit' ? `ID: ${currentBookingId}` : 'Rezervo shpejt dhe cakto tavolinën'}
+                      Tavolina #{selectedTable.number} • Ora {selectedTime}
                     </p>
                   </div>
-                  <button
-                    onClick={() => setIsBookingModalOpen(false)}
-                    className="text-slate-400 hover:text-white text-lg font-bold"
-                  >
-                    ✕
-                  </button>
-                </div>
-
-                <form onSubmit={handleSaveBooking} className="space-y-3">
-                  <div>
-                    <label className="text-[11px] font-semibold text-slate-300 block mb-1">
-                      {t.form.clientName}
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.clientName}
-                      onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
-                      placeholder={t.form.clientPlaceholder}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="text-[11px] font-semibold text-slate-300 block mb-1">
-                        {t.form.phone}
-                      </label>
-                      <input
-                        type="tel"
-                        required
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder={t.form.phonePlaceholder}
-                        className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="text-[11px] font-semibold text-slate-300 block mb-1">
-                        {t.form.partySize}
-                      </label>
-                      <input
-                        type="number"
-                        min="1"
-                        max="20"
-                        value={formData.partySize}
-                        onChange={(e) => setFormData({ ...formData, partySize: Number(e.target.value) })}
-                        className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="text-[11px] font-semibold text-slate-300 block mb-1">
-                        {t.form.time}
-                      </label>
-                      <select
-                        value={formData.time}
-                        onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                        className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-2 text-xs text-white focus:outline-none focus:border-rose-500"
-                      >
-                        {SLOTS.map(st => (
-                          <option key={st} value={st}>{st}</option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="text-[11px] font-semibold text-slate-300 block mb-1">
-                        {t.form.tableSelect}
-                      </label>
-                      <select
-                        value={formData.tableNumber}
-                        onChange={(e) => setFormData({ ...formData, tableNumber: Number(e.target.value) })}
-                        className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-2 text-xs text-white focus:outline-none focus:border-rose-500"
-                      >
-                        {tables.map(tbl => (
-                          <option key={tbl.id} value={tbl.number}>
-                            #{tbl.number} ({tbl.seats}P) - {t.zones[tbl.zone]}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="text-[11px] font-semibold text-slate-300 block mb-1">
-                      Statusi i Mysafirit
-                    </label>
-                    <select
-                      value={formData.status}
-                      onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-2 text-xs text-white focus:outline-none focus:border-rose-500"
-                    >
-                      <option value="confirmed">Confirmed (Rezervuar)</option>
-                      <option value="seated">Seated (Tashmë të Ulur)</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="text-[11px] font-semibold text-slate-300 block mb-1">
-                      {t.form.notes}
-                    </label>
-                    <textarea
-                      rows="2"
-                      value={formData.notes}
-                      onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                      placeholder={t.form.notesPlaceholder}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500 resize-none"
-                    ></textarea>
-                  </div>
-
-                  <div className="pt-2 flex items-center gap-2">
-                    {bookingModalMode === 'edit' && (
+                ) : (
+                  <>
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+                      <div>
+                        <h3 className="text-sm font-bold text-white">
+                          {t.actions.bookTable} #{selectedTable.number}
+                        </h3>
+                        <p className="text-xs text-slate-400">
+                          {t.zones[selectedTable.zone]} • {selectedTable.seats} {t.guests} • {selectedTime}
+                        </p>
+                      </div>
                       <button
-                        type="button"
-                        onClick={() => handleCancelBooking(currentBookingId)}
-                        className="px-3 py-2 rounded-lg bg-rose-950/70 border border-rose-800 text-rose-300 font-semibold text-xs hover:bg-rose-900"
+                        onClick={() => setIsBookingModalOpen(false)}
+                        className="text-slate-400 hover:text-white text-lg font-bold"
                       >
-                        {t.actions.cancelReservation}
+                        ✕
                       </button>
-                    )}
-                    <button
-                      type="button"
-                      onClick={() => setIsBookingModalOpen(false)}
-                      className="flex-1 py-2 rounded-lg bg-slate-800 text-slate-300 font-semibold text-xs hover:bg-slate-700"
-                    >
-                      {t.actions.close}
-                    </button>
-                    <button
-                      type="submit"
-                      className="flex-1 py-2 rounded-lg bg-gradient-to-r from-rose-600 to-amber-600 text-white font-bold text-xs shadow-lg shadow-rose-600/30 hover:opacity-95"
-                    >
-                      {bookingModalMode === 'edit' ? t.actions.save : t.actions.confirm}
-                    </button>
-                  </div>
-                </form>
+                    </div>
+
+                    <form onSubmit={handleConfirmReservation} className="space-y-3">
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-300 block mb-1">
+                          {lang === 'sq' ? 'Emri i Plotë' : 'Guest Full Name'}
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={resName}
+                          onChange={(e) => setResName(e.target.value)}
+                          placeholder="p.sh. Alban Berisha"
+                          className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-300 block mb-1">
+                            {lang === 'sq' ? 'Telefoni' : 'Phone'}
+                          </label>
+                          <input
+                            type="tel"
+                            required
+                            value={resPhone}
+                            onChange={(e) => setResPhone(e.target.value)}
+                            placeholder="+355 / +383..."
+                            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="text-[11px] font-semibold text-slate-300 block mb-1">
+                            {t.guests}
+                          </label>
+                          <input
+                            type="number"
+                            min="1"
+                            max={selectedTable.seats}
+                            value={resParty}
+                            onChange={(e) => setResParty(Number(e.target.value))}
+                            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-semibold text-slate-300 block mb-1">
+                          {lang === 'sq' ? 'Shënime të Veçanta' : 'Special Notes'}
+                        </label>
+                        <textarea
+                          rows="2"
+                          value={resNotes}
+                          onChange={(e) => setResNotes(e.target.value)}
+                          placeholder="Alergji, festë ditëlindjeje, preferencë..."
+                          className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-500 resize-none"
+                        ></textarea>
+                      </div>
+
+                      <div className="pt-2 flex items-center gap-3">
+                        <button
+                          type="button"
+                          onClick={() => setIsBookingModalOpen(false)}
+                          className="w-1/3 py-2 rounded-lg bg-slate-800 text-slate-300 font-semibold text-xs hover:bg-slate-700"
+                        >
+                          {t.actions.cancel}
+                        </button>
+                        <button
+                          type="submit"
+                          className="w-2/3 py-2 rounded-lg bg-gradient-to-r from-rose-600 to-amber-600 text-white font-bold text-xs shadow-lg shadow-rose-600/30 hover:opacity-95"
+                        >
+                          {t.actions.confirm}
+                        </button>
+                      </div>
+                    </form>
+                  </>
+                )}
               </div>
             </div>
           )}
@@ -1494,7 +1300,7 @@
                   </div>
                   <div className="pt-2 flex gap-2">
                     <button type="button" onClick={() => setIsWaitlistModalOpen(false)} className="w-1/2 py-2 bg-slate-800 text-slate-300 rounded-lg text-xs font-semibold">
-                      {t.actions.close}
+                      {t.actions.cancel}
                     </button>
                     <button type="submit" className="w-1/2 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">
                       {t.actions.addToWaitlist}
